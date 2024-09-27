@@ -75,6 +75,7 @@ spec:
               script: |
                 find 
                 exit 0
+  serviceAccountName: default
   workspaces:
   - name: source
     volumeClaimTemplate:
