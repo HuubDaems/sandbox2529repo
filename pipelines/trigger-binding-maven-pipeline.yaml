@@ -1,0 +1,11 @@
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerBinding
+metadata:
+  name: maven-pipeline-binding
+spec: 
+  params:
+  - name: git-url
+    value: $(body.git-url)
+  - name: mvn-goals
+    value: $(body.mvn-goals)

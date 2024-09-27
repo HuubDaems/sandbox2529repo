@@ -1,0 +1,33 @@
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: TriggerTemplate
+metadata:
+  name: maven-pipeline-template
+spec:
+  params:
+  - name: username
+    default: "Kubernetes"
+  - name: git-url
+  - name: mvn-goals
+  resourcetemplates:
+  - apiVersion: tekton.dev/v1beta1
+    kind: PipelineRun
+    metadata:
+      generateName: maven-pipeline-template-run-
+    spec:
+      pipelineRef:
+        name: maven-pipeline
+      params:
+        - name: GIT_URL
+          value: $(tt.params.git-url)
+        - name: MVN_GOALS
+          value: $(tt.params.mvn-goals)
+        - name: MVN_CONTEXT_DIR
+          value: 'code-with-quarkus'
+      workspaces:
+        - name: shared-workspace
+          persistentVolumeClaim:
+            claimName: source-app
+        - name: maven-settings
+          configmap:
+            name: maven-settings

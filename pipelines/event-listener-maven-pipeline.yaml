@@ -1,0 +1,14 @@
+---
+apiVersion: triggers.tekton.dev/v1beta1
+kind: EventListener
+metadata:
+  name: maven-pipeline-listener
+spec:
+  serviceAccountName: pipeline
+  triggers:
+    - name: maven-pipeline-trigger 
+      bindings:
+      - ref: maven-pipeline-binding
+      template:
+        ref: maven-pipeline-template
+        

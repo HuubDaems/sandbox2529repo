@@ -1,3 +1,4 @@
+---
 apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
@@ -18,7 +19,6 @@ spec:
     default: "main"
   - name: MVN_GOALS
     description: 'maven goals to run'
-    type: array
   - name: MVN_CONTEXT_DIR
     description: 'The context directory within the repository for sources on which we want to execute maven goals.'
     type: string

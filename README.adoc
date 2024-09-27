@@ -19,3 +19,22 @@ kind: Kustomization
 resources:
   - github.com/redhat-cop/gitops-catalog/nexus2/base/?ref=v0.9
 ----
+
+
+First PipelineRun - 17 minute 6 second
+Second PipelineRun - 34 second
+
+
+
+== Activate Event Listener
+
+
+oc expose svc el-maven-pipeline-listener
+
+
+[source]
+----
+curl -v -H 'content-Type: application/json' \
+     -d '{"username": "Tekton", "git-url":"https://github.com/hdaems/sandbox2529repo.git", "mvn-goals":"['-DskipTests', clean, package]"}' \
+     http://el-maven-pipeline-listener-pipelines-tutorial.apps.lab.sandbox2529.opentlc.com
+----

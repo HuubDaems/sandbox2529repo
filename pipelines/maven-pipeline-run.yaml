@@ -11,8 +11,13 @@ spec:
   params:
     - name: GIT_URL
       value: 'https://github.com/hdaems/sandbox2529repo.git'
+#    - name: MVN_GOALS
+#      value: ["-DskipTests", "clean", "package"]
     - name: MVN_GOALS
-      value: ["-DskipTests", "clean", "package"]
+      value:
+        - '-DskipTests'
+        - clean
+        - package      
     - name: MVN_CONTEXT_DIR
       value: 'code-with-quarkus'
   pipelineRef:
@@ -47,3 +52,39 @@ spec:
 #          resources:
 #            requests:
 #              storage: 1Gi      
+
+
+#apiVersion: tekton.dev/v1
+#kind: PipelineRun
+#metadata:
+#  generateName: maven-pipeline-run-
+#  namespace: pipelines-tutorial
+#  finalizers:
+#    - chains.tekton.dev/pipelinerun
+#  labels:
+#    tekton.dev/pipeline: maven-pipeline
+#spec:
+#  params:
+#    - name: GIT_URL
+#      value: 'https://github.com/hdaems/sandbox2529repo.git'
+#    - name: MVN_GOALS
+#      value:
+#        - '-DskipTests'
+#        - clean
+#        - package
+#    - name: MVN_CONTEXT_DIR
+#      value: code-with-quarkus
+#  pipelineRef:
+#    name: maven-pipeline
+#  taskRunTemplate:
+#    serviceAccountName: pipeline
+#  timeouts:
+#    pipeline: 1h0m0s
+#  workspaces:
+#    - name: shared-workspace
+#      persistentVolumeClaim:
+#        claimName: source-app
+#    - configMap:
+#        name: maven-settings
+#      name: maven-settings
+      
