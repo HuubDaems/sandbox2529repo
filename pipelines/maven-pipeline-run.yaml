@@ -21,11 +21,29 @@ spec:
   timeout: 1h0m0s
   workspaces:
     - name: shared-workspace
-      volumeClaimTemplate:
-        spec:
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: 500Mi
-
+      persistentVolumeClaim:
+        claimName: source-app
+#      volumeClaimTemplate:
+#        spec:
+#          accessModes:
+#            - ReadWriteOnce
+#          resources:
+#            requests:
+#              storage: 1Gi
+    - name: maven-settings
+      configmap:
+        name: maven-settings    
+#    - name: maven-m2
+#      persistentVolumeClaim:
+#        claimName: maven-m2
+#    - name: maven-settings
+#      configmap:
+#        name: maven-settings
+#    - name: maven-m2
+#      volumeClaimTemplate:
+#        spec:
+#          accessModes:
+#            - ReadWriteOnce
+#          resources:
+#            requests:
+#              storage: 1Gi      

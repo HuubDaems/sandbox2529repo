@@ -4,7 +4,9 @@ metadata:
   name: maven-pipeline
 spec:
   workspaces:
-    - name: shared-workspace
+    - name: shared-workspace  
+    - name: maven-settings     
+#    - name: maven-m2          
   params:
   - name: GIT_URL
     description: 'Repository URL to clone from.'
@@ -59,16 +61,28 @@ spec:
         - name: source
           workspace: shared-workspace
         - name: maven-settings
-          workspace: shared-workspace
+          workspace: maven-settings
       params:
         - name: GOALS
           value: "$(params.MVN_GOALS[*])"
         - name: CONTEXT_DIR
           value: $(params.MVN_CONTEXT_DIR)
+        - name: MAVEN_IMAGE
+          value: 'registry.redhat.io/ubi8/openjdk-21'
       runAfter:
         - fetch-repository
         
+    - name: dumper
+      taskRef:
+        name: dump-mvn-settings
+        kind: Task
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings          
+      runAfter:
+        - maven
 
+        
     # image build
 
     # image scan

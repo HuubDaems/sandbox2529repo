@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: dump-mvn-settings
+spec:
+  workspaces:
+    - name: maven-settings
+  params:
+    - name: IMAGE
+      type: string
+      description: image containing find commando
+      default: registry.redhat.io/ubi8/openjdk-21:latest
+  results:
+    - name: output
+      type: string
+  steps:
+    - command:
+        - /bin/bash
+        - '-c'
+        - |
+          set -ex
+          cat $(workspaces.maven-settings.path)/settings.xml
+      image: $(params.IMAGE)
+      name: 'dump-workspace'
+
+      

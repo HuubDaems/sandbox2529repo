@@ -5,3 +5,17 @@ Nothing yet
 Adding something would this trigger
 Maybe this one
 
+
+
+== install nexus
+
+Update pipelines/workspace/configmap-maven-settings.yaml with Service of Nexus.
+
+[source]
+----
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - github.com/redhat-cop/gitops-catalog/nexus2/base/?ref=v0.9
+----
